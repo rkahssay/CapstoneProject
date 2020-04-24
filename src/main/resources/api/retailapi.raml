@@ -1,0 +1,254 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/1026d6a8-04c5-4048-8d4f-f7b8ec54619e/ # 
+title: RetailAPI
+version: 1.0 
+ 
+
+description:  This is a restful API for a retail store. 
+
+/Products:
+  get:
+    description: fetches list of all product data
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              [
+                "Products": {
+                  "id": 0,
+                  "name": "string",
+                  "barcode": "string",
+                  "rate": 0,
+                  "productCategory": "string"
+                   },
+                   {
+                  "id": 1,
+                  "name": "string",
+                  "barcode": "string",
+                  "rate": 0,
+                  "productCategory": "string"}]
+      404:
+        body:
+          application/json:
+            example: {"message": "product not found"}
+                                     
+  post:
+    description: Creates a new product based on request JSON
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {"name": "string"}
+      403:
+        body:
+          application/json:
+            example: {"message": "Forbiden to create"}        
+  /{id}:            
+    get:
+      description: fetch a specific product
+      responses:
+        200:
+          body:
+            application/json:
+              example: [
+                "Products": {
+                  "id": 0,
+                  "name": "string",
+                  "barcode": "string",
+                  "rate": 0,
+                  "productCategory": "string"
+                   },
+                   {
+                  "id": 1,
+                  "name": "string",
+                  "barcode": "string",
+                  "rate": 0,
+                  "productCategory": "string"}]
+        404:
+          body:
+            application/json:
+              example: {"message": "product not found"}
+            
+                                   
+    put:
+      description: Updates product data
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"Product": {"id": 0,
+                                   "name": "string",
+                                   "barcode": "string",
+                                   "rate": 0,
+                                   "productCategory": "string" }}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}                           
+            
+    delete:
+      description: Delete an existing product if it is not associated with a bill
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"message": "Deleted Product"}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}       
+              
+      
+
+/bills:
+  get:
+    description: fetches all bill data
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              ["Bill": {"id": 0,
+                        "noOfItems": integer,
+                        "totalCost": "string",
+                        "totalTax": "string",
+                        "totalValue": "string"},
+                         {"id": 1,
+                        "noOfItems": integer,
+                        "totalCost": "string",
+                        "totalTax": "string",
+                        "totalValue": "string"}]
+      404:
+        body:
+          application/json:
+            example: {"message": "product not found"}                  
+  post:
+    description: creates a bill Id which client has to use this bill Id while adding and removing products
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"id": 0}
+      403:
+        body:
+          application/json:
+            example: {"message": "Forbiden to create"}      
+
+  /{id}: 
+    get:
+      description: fetches bill of a particular id
+      responses:
+        200:
+          body:
+            application/json:
+              example: ["Bill": {"id": 0,
+                        "noOfItems": integer,
+                        "totalCost": "string",
+                        "totalTax": "string",
+                        "totalValue": "string"},
+                         {"id": 1,
+                        "noOfItems": integer,
+                        "totalCost": "string",
+                        "totalTax": "string",
+                        "totalValue": "string"}]
+        404:
+          body:
+            application/json:
+              example: {"message": "product not found"}                
+                    
+    put:
+      description: Updates bill data which client can add or remove products to bill sending a JSON request.
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"Bill": {"id": 0,
+                        "noOfItems": 0,
+                        "totalCost": "string",
+                        "totalTax": "string",
+                        "totalValue": "string"}}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}                
+            
+    delete:
+      description: Delete bill from the system
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"id": 0}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}                              
+  
+    
+/ProductCategory:   
+  get:
+    description: productcatagories fetches list of all productcatagory data
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {"ProductCategory": {"id": 0,
+                                    "name": "string"}}
+      404:
+          body:
+            application/json:
+              example: {"message": "product category not found"}                              
+
+  post:
+    description: Creates a new productcatagory based on request 
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"CreateProductCategory": {"id": 0,
+                                                "name": "string"}}
+      403:
+        body:
+          application/json:
+            example: {"message": "Forbiden to create"}                                          
+  /{id}:     
+    get:
+      description: fetch a specific productcatagory
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"ProductCategory": {"id": 0,
+                                    "name": "string"}}
+        404:
+          body:
+            application/json:
+              example: {"message": "product category not found"}                            
+                           
+    put:
+      description: Updates productcatagory data based on request JSON
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                {"CreateProductCategory": {"id": 0,
+                                           "name": "string"}}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}                   
+    delete:
+      description: Delete an existing productcatagory
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"message": "Deleted Product category"}
+        401:
+          body:
+            application/json:
+              example: {"message": "unauthorized"}  
